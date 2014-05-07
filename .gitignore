@@ -1,0 +1,14 @@
+# Mac system file
+*.DS_Store
+
+# Node Modules
+node_modules
+
+# Bower Components
+web/components
+
+# Sass
+.sass-cache
+
+# Build
+build
