@@ -1,4 +1,22 @@
-<div class="starter-template">
-	<h1>Bootstrap starter template</h1>
-	<p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+<div class="row">
+	<div class="col-sm-8">
+		<h1>This Week on PeerPerks</h1>
+		<p class="lead">The team has collectively earned 60 points.</p>
+	</div>
+	<div class="col-sm-4">
+		<div class="btn-group pull-right">
+			<button type="button" class="btn btn-primary btn-lg" ng-click="selectReward[participant.name] != selectReward[participant.name]">Reward</button>
+			<button type="button" class="btn btn-default btn-lg">Redeem</button>
+		</div>
+	</div>
 </div>
+
+<ul class="list-group">
+	<li class="list-group-item" ng-repeat="participant in participants">
+		<span class="badge" ng-click="addPoint(participant)">{{participant.points}}</span>
+		<h4>
+			<img class="img-circle" src="http://placehold.it/64x64" alt="">
+			<span>{{participant.name}}</span>
+		</h4>
+	</li>
+</ul>
