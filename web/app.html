@@ -5,18 +5,28 @@
 	</div>
 	<div class="col-sm-4">
 		<div class="btn-group pull-right">
-			<button type="button" class="btn btn-primary btn-lg" ng-click="selectReward[participant.name] != selectReward[participant.name]">Reward</button>
-			<button type="button" class="btn btn-default btn-lg">Redeem</button>
+			<div ng-hide="selectReward">
+				<button type="button" class="btn btn-primary btn-lg" ng-click="selectReward = !selectReward">Reward</button>
+				<button type="button" class="btn btn-default btn-lg">Redeem</button>
+			</div>
+			<div ng-show="selectReward">
+				<button type="button" class="btn btn-danger btn-lg" ng-click="selectReward = !selectReward">Cancel</button>
+			</div>
 		</div>
 	</div>
 </div>
 
-<ul class="list-group">
-	<li class="list-group-item" ng-repeat="participant in participants">
+<ul ng-hide="selectReward" class="list-group">
+	<li class="list-group-item" ng-repeat="participant in remoteParticipants">
 		<span class="badge" ng-click="addPoint(participant)">{{participant.points}}</span>
 		<h4>
-			<img class="img-circle" src="http://placehold.it/64x64" alt="">
+			<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" ></gravatar-image>
 			<span>{{participant.name}}</span>
 		</h4>
 	</li>
 </ul>
+
+<div ng-show="selectReward">
+	<h3>1. Select participant to reward.</h3>
+	<pp-reward participants="remoteParticipants"></pp-reward>
+</div>

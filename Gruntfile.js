@@ -14,7 +14,8 @@ module.exports = function(grunt) {
 						'web/components/angular/angular.min.js',
 						'web/components/angular-route/angular-route.min.js',
 						'web/components/firebase/firebase.js',
-						'web/components/angularfire/angularfire.min.js'
+						'web/components/angularfire/angularfire.min.js',
+						'web/components/angularjs-gravatardirective/dist/angularjs-gravatardirective.min.js'
 					]
 				}
 			},

@@ -2,7 +2,8 @@
 
 var app = angular.module('ngPeerPerks', [
 		'ngRoute',
-		'service.participants'
+		'service.participants',
+		'directive.reward'
 	])
 	
 	.config(function ($routeProvider, $locationProvider) {
@@ -18,11 +19,7 @@ var app = angular.module('ngPeerPerks', [
 	
 	.controller('AppCtrl', function ($scope, ParticipantsService) {
 		$scope.participants = ParticipantsService;
-		$scope.participants.$bind($scope, 'participants');
-		// $scope.participants.$add({
-		// 	'name': 'Trudel',
-		// 	'points': 20
-		// });
+		$scope.participants.$bind($scope, 'remoteParticipants');
 		
 		$scope.addPoint = function(participant) {
 			participant.points = participant.points + 1;
