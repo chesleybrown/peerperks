@@ -12,6 +12,7 @@ angular
 			restrict: 'E',
 			replace: true,
 			scope: {
+				enabled: '='
 			},
 			template:
 				'<div>' +
@@ -35,7 +36,7 @@ angular
 					'</div>' +
 					'<div class="row">' +
 						'<div class="col-xs-10">' +
-							'<p ng-show="selected.participant && selected.reward"><strong>{{selected.participant.name}}</strong> earned <strong>{{selected.reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong> for <strong>{{selected.reward.name}}</strong></p>' +
+							'<div class="alert alert-info" ng-show="selected.participant && selected.reward"><span class="glyphicon glyphicon-info-sign"></span> <strong>{{selected.participant.name}}</strong> earned <strong>{{selected.reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong> for <strong>{{selected.reward.name}}</strong></div>' +
 						'</div>' +
 						'<div class="col-xs-2">' +
 							'<button type="button" class="btn btn-lg btn-success pull-right" ng-click="save()">Save</button>' +
@@ -68,6 +69,8 @@ angular
 						participant: $scope.selected.participant,
 						reward: $scope.selected.reward,
 						created: Firebase.ServerValue.TIMESTAMP
+					}).then(function() {
+						$scope.enabled = false;
 					});
 				};
 				
