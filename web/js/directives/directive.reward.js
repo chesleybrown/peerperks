@@ -1,25 +1,116 @@
+'use strict';
+
 angular
 	.module('directive.reward', [
-		'angularjs-gravatardirective'
+		'angularjs-gravatardirective',
+		'service.participant',
+		'service.reward',
+		'service.activity'
 	])
-	.directive('ppReward', function() {
+	.directive('ppReward', function(ParticipantService, RewardService, ActivityService) {
 		return {
 			restrict: 'E',
 			replace: true,
 			scope: {
-				participants: '='
 			},
 			template:
-				'<div class="row">' +
-					'<div ng-repeat="participant in participants" class="col-lg-3 col-md-4 col-xs-6 thumb">' +
-						'<a href="#" class="thumbnail text-center">' +
-							'<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle"></gravatar-image>' +
-							'<h4 class="text-center">{{participant.name}}</h4>' +
-						'</a>' +
+				'<div>' +
+					'<h5>1. Select participant</h5>' +
+					'<div class="row equal">' +
+						'<div ng-repeat="(id, participant) in participants" class="col-lg-3 col-md-4 col-xs-6 thumb">' +
+							'<a class="thumbnail text-center" ng-click="selectUser(id)" ng-class="{active: selected.participant.$id === id}">' +
+								'<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle"></gravatar-image>' +
+								'<h4 class="text-center">{{participant.name}}</h4>' +
+							'</a>' +
+						'</div>' +
+					'</div>' +
+					'<h5>2. Select reward</h5>' +
+					'<div class="row equal">' +
+						'<div ng-repeat="(id, reward) in remoteRewards" class="col-lg-3 col-md-4 col-xs-6 thumb">' +
+							'<a class="reward thumbnail text-center" ng-click="selectReward(id)" ng-class="{active: selected.reward.$id === id}">' +
+								'<p class="value">{{reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></p>' +
+								'<p>{{reward.name}}</p>' +
+							'</a>' +
+						'</div>' +
+					'</div>' +
+					'<div class="row">' +
+						'<div class="col-xs-10">' +
+							'<p ng-show="selected.participant && selected.reward"><strong>{{selected.participant.name}}</strong> earned <strong>{{selected.reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong> for <strong>{{selected.reward.name}}</strong></p>' +
+						'</div>' +
+						'<div class="col-xs-2">' +
+							'<button type="button" class="btn btn-lg btn-success pull-right" ng-click="save()">Save</button>' +
+						'</div>' +
 					'</div>' +
 				'</div>',
 			controller: function($scope) {
+				$scope.selected = {
+					participant: null,
+					reward: null
+				};
+				$scope.participants = ParticipantService;
 				
+				$scope.rewards = RewardService;
+				$scope.rewards.$bind($scope, 'remoteRewards');
+				
+				$scope.selectUser = function(participantId) {
+					$scope.selected.participant = $scope.participants.$child(participantId);
+				};
+				
+				$scope.selectReward = function(rewardId) {
+					$scope.selected.reward = $scope.rewards.$child(rewardId);
+				};
+				
+				$scope.save = function() {
+					$scope.selected.participant.points = $scope.selected.participant.points + $scope.selected.reward.points;
+					$scope.selected.participant.$save();
+					
+					ActivityService.$add({
+						participant: $scope.selected.participant,
+						reward: $scope.selected.reward,
+						created: Firebase.ServerValue.TIMESTAMP
+					});
+				};
+				
+				// $scope.rewards.$add({
+				// 	name: 'Open a pull request',
+				// 	points: 1
+				// });
+				// $scope.rewards.$add({
+				// 	name: 'Have your pull request merged',
+				// 	points: 2
+				// });
+				// $scope.rewards.$add({
+				// 	name: 'Pull request merged without any reported issues',
+				// 	points: 3
+				// });
+				// $scope.rewards.$add({
+				// 	name: 'Approved someone else\'s pull request',
+				// 	points: 1
+				// });
+				// $scope.rewards.$add({
+				// 	name: 'Found issue in someone else\’s pull request',
+				// 	points: 2
+				// });
+				// $scope.rewards.$add({
+				// 	name: 'Finished on top this week',
+				// 	points: 3
+				// });
+				// $scope.rewards.$add({
+				// 	name: 'Kudos from fellow coder',
+				// 	points: 1
+				// });
+				// $scope.rewards.$add({
+				// 	name: 'Helpful commit on someone else\'s pull request',
+				// 	points: 1
+				// });
+				// $scope.rewards.$add({
+				// 	name: 'Found jshint errors in pull request',
+				// 	points: 1
+				// });
+				// $scope.rewards.$add({
+				// 	name: 'Found broken tests in pull request',
+				// 	points: 1
+				// });
 			}
 		};
 	})

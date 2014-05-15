@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-sm-8">
 		<h1>This Week on PeerPerks</h1>
-		<p class="lead">The team has collectively earned 60 points.</p>
+		<p class="lead">Code Free or Die Hard</p>
 	</div>
 	<div class="col-sm-4">
 		<div class="btn-group pull-right">
@@ -16,17 +16,36 @@
 	</div>
 </div>
 
-<ul ng-hide="selectReward" class="list-group">
-	<li class="list-group-item" ng-repeat="participant in remoteParticipants">
-		<span class="badge" ng-click="addPoint(participant)">{{participant.points}}</span>
-		<h4>
-			<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" ></gravatar-image>
-			<span>{{participant.name}}</span>
-		</h4>
-	</li>
-</ul>
+<div class="row" ng-show="selectReward">
+	<div class="col-sm-12">
+		<h3>Reward</h3>
+		<pp-reward></pp-reward>
+	</div>
+</div>
 
-<div ng-show="selectReward">
-	<h3>1. Select participant to reward.</h3>
-	<pp-reward participants="remoteParticipants"></pp-reward>
+<div class="row" ng-hide="selectReward">
+	<div class="col-sm-12">
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="participant in remoteParticipants">
+				<span class="badge">{{participant.points}}</span>
+				<h4>
+					<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" ></gravatar-image>
+					<span>{{participant.name}}</span>
+				</h4>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<h3>Activity</h3>
+		<ul class="list-group">
+			<li class="list-group-item" ng-repeat="activity in activities">
+				<p>
+					<strong>{{activity.participant.name}}</strong> earned <strong>{{activity.reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong> for <strong>{{activity.reward.name}}</strong>
+				</p>
+			</li>
+		</ul>
+	</div>
 </div>

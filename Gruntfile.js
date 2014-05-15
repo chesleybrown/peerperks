@@ -48,7 +48,10 @@ module.exports = function(grunt) {
 		sass: {
 			build: {
 				options: {
-					outputStyle: 'nested'
+					outputStyle: 'nested',
+					includePaths: [
+						'web/components/bootstrap-sass-official/vendor/assets/stylesheets'
+					]
 				},
 				files: {
 					'build/css/compiled/base.css': 'web/css/base.scss'
@@ -62,8 +65,6 @@ module.exports = function(grunt) {
 			build: {
 				files: {
 					'build/css/compiled/site.css': [
-						'web/components/bootstrap/dist/css/bootstrap.min.css',
-						'web/components/bootstrap/dist/css/bootstrap-theme.min.css',
 						'build/css/compiled/base.css'
 					]
 				}
@@ -85,7 +86,8 @@ module.exports = function(grunt) {
 				expand: true,
 				cwd: 'web',
 				src: [
-					'*'
+					'*',
+					'components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/*'
 				],
 				dest: 'build/'
 			},

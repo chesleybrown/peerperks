@@ -2,7 +2,8 @@
 
 var app = angular.module('ngPeerPerks', [
 		'ngRoute',
-		'service.participants',
+		'service.participant',
+		'service.activity',
 		'directive.reward'
 	])
 	
@@ -17,13 +18,11 @@ var app = angular.module('ngPeerPerks', [
 		;
 	})
 	
-	.controller('AppCtrl', function ($scope, ParticipantsService) {
-		$scope.participants = ParticipantsService;
+	.controller('AppCtrl', function ($scope, ParticipantService, ActivityService) {
+		$scope.participants = ParticipantService;
 		$scope.participants.$bind($scope, 'remoteParticipants');
 		
-		$scope.addPoint = function(participant) {
-			participant.points = participant.points + 1;
-		};
+		$scope.activities = ActivityService;
 	})
 	
 ;

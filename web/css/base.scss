@@ -1,3 +1,7 @@
+@import "vars";
+@import "bootstrap";
+@import "bootstrap/theme";
+
 // Angular Cloak
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
 	display: none !important;
@@ -9,4 +13,22 @@ body {
 
 body > .container {
 	margin-top: 20px;
+}
+
+.thumb {
+	> .thumbnail {
+		cursor: pointer;
+	}
+}
+
+.reward {
+	height: 120px;
+	
+	.value {
+		font-size: 26px;
+	}
+}
+
+.badge {
+	font-size: 30px;
 }
