@@ -32,3 +32,9 @@ body > .container {
 .badge {
 	font-size: 26px;
 }
+
+a {
+	&:hover {
+		text-decoration: none;
+	}
+}
