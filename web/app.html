@@ -27,7 +27,7 @@
 	<div class="col-sm-12">
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="participant in remoteParticipants">
-				<span class="badge">{{participant.points}}</span>
+				<span class="badge">{{participant.points}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
 				<h4>
 					<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" ></gravatar-image>
 					<span>{{participant.name}}</span>
