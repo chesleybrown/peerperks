@@ -36,10 +36,10 @@ angular
 					'</div>' +
 					'<div class="row">' +
 						'<div class="col-xs-10">' +
-							'<div class="alert alert-info" ng-show="selected.participant && selected.reward"><span class="glyphicon glyphicon-info-sign"></span> <strong>{{selected.participant.name}}</strong> earned <strong>{{selected.reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong> for <strong>{{selected.reward.name}}</strong></div>' +
+							'<div class="alert alert-info" ng-show="selected.participant && selected.reward"><span class="glyphicon glyphicon-info-sign"></span> <strong>{{selected.participant.name}}</strong> will earn <strong>{{selected.reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong> for <strong>{{selected.reward.name}}</strong></div>' +
 						'</div>' +
 						'<div class="col-xs-2">' +
-							'<button type="button" class="btn btn-lg btn-success pull-right" ng-click="save()">Save</button>' +
+							'<button type="button" class="btn btn-lg btn-success pull-right" ng-click="save()" ng-disabled="!selected.participant || !selected.reward">Save</button>' +
 						'</div>' +
 					'</div>' +
 				'</div>',
@@ -63,14 +63,18 @@ angular
 				
 				$scope.save = function() {
 					$scope.selected.participant.points = $scope.selected.participant.points + $scope.selected.reward.points;
-					$scope.selected.participant.$save();
-					
-					ActivityService.$add({
-						participant: $scope.selected.participant,
-						reward: $scope.selected.reward,
-						created: Firebase.ServerValue.TIMESTAMP
-					}).then(function() {
-						$scope.enabled = false;
+					$scope.selected.participant.$save().then(function() {
+						ActivityService.$add({
+							participant: $scope.selected.participant,
+							reward: $scope.selected.reward,
+							created: Firebase.ServerValue.TIMESTAMP
+						}).then(function() {
+							// reset
+							$scope.selected.participant = null;
+							$scope.selected.reward = null;
+							
+							$scope.enabled = false;
+						});
 					});
 				};
 				
