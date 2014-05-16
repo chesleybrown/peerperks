@@ -20,7 +20,7 @@ angular
 					'<div class="row equal">' +
 						'<div ng-repeat="(id, participant) in participants" class="col-lg-3 col-md-4 col-xs-6 thumb">' +
 							'<a class="thumbnail text-center" ng-click="selectUser(id)" ng-class="{active: selected.participant.$id === id}">' +
-								'<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle"></gravatar-image>' +
+								'<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" data-gravatar-secure="1"></gravatar-image>' +
 								'<h4 class="text-center">{{participant.name}}</h4>' +
 							'</a>' +
 						'</div>' +
