@@ -5,9 +5,10 @@ angular
 		'angularjs-gravatardirective',
 		'service.participant',
 		'service.reward',
-		'service.activity'
+		'service.activity',
+		'firebase'
 	])
-	.directive('ppReward', function(ParticipantService, RewardService, ActivityService) {
+	.directive('ppReward', function($firebase, ParticipantService, RewardService, ActivityService) {
 		return {
 			restrict: 'E',
 			replace: true,
@@ -63,12 +64,18 @@ angular
 				
 				$scope.save = function() {
 					$scope.selected.participant.points = $scope.selected.participant.points + $scope.selected.reward.points;
+					$scope.selected.participant.$priority = -Math.abs($scope.selected.participant.points);
 					$scope.selected.participant.$save().then(function() {
 						ActivityService.$add({
 							participant: $scope.selected.participant,
 							reward: $scope.selected.reward,
 							created: Firebase.ServerValue.TIMESTAMP
-						}).then(function() {
+						})
+						.then(function(ref) {
+							var activity = $firebase(ref);
+							activity.$priority = -Math.abs(new Date().getTime());
+							activity.$save();
+							
 							// reset
 							$scope.selected.participant = null;
 							$scope.selected.reward = null;

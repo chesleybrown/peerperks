@@ -26,7 +26,7 @@
 <div class="row" ng-hide="selectReward">
 	<div class="col-sm-12">
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="participant in remoteParticipants">
+			<li class="list-group-item" ng-repeat="participant in remoteParticipants | orderByPriority">
 				<span class="badge">{{participant.points}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
 				<h4>
 					<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" data-gravatar-secure="1"></gravatar-image>
@@ -41,7 +41,7 @@
 	<div class="col-sm-12">
 		<h3>Activity</h3>
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="activity in activities">
+			<li class="list-group-item" ng-repeat="activity in activities | orderByPriority">
 				<p>
 					<strong>{{activity.participant.name}}</strong> earned <strong>{{activity.reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong> for <strong>{{activity.reward.name}}</strong>
 				</p>
