@@ -1,18 +1,26 @@
 <div class="row">
-	<div class="col-sm-8">
+	<div class="col-sm-6">
 		<h1>All Time on PeerPerks</h1>
-		<p class="lead">Code Free or Die Hard</p>
+		<p class="lead">Code Hard. Get Perks.</p>
 	</div>
-	<div class="col-sm-4">
-		<div class="btn-group pull-right">
-			<div ng-hide="selectReward || selectPerk">
-				<button type="button" class="btn btn-primary btn-lg" ng-click="selectReward = !selectReward">Reward</button>
-				<button type="button" class="btn btn-default btn-lg" ng-click="selectPerk = !selectPerk">Redeem</button>
+	<div class="col-sm-6">
+		<div class="pull-right">
+			<button ng-hide="user" type="button" class="btn btn-success btn-lg" ng-click="login()">Login</button>
+			
+			<div class="btn-group">
+				<button ng-hide="!user || selectReward || selectPerk" type="button" class="btn btn-primary btn-lg" ng-click="selectReward = !selectReward">Reward</button>
+				<button ng-hide="!user || selectReward || selectPerk" type="button" class="btn btn-default btn-lg" ng-click="selectPerk = !selectPerk">Redeem</button>
 			</div>
-			<div ng-show="selectReward || selectPerk">
-				<button type="button" class="btn btn-danger btn-lg" ng-click="cancel()">Cancel</button>
-			</div>
+			
+			<button ng-show="selectReward || selectPerk" type="button" class="btn btn-danger btn-lg" ng-click="cancel()">Cancel</button>
+			<button ng-show="user" type="button" class="btn btn-link btn-lg" ng-click="logout()">Logout</button>
 		</div>
+	</div>
+</div>
+
+<div class="row" ng-show="error">
+	<div class="col-xs-12">
+		<div class="alert alert-danger">{{error}}</div>
 	</div>
 </div>
 
@@ -44,7 +52,7 @@
 						<span class="badge">{{participant.points}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
 						<h4>
 							<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" data-gravatar-secure="1"></gravatar-image>
-							<span>{{participant.name}}</span>
+							<span>{{participant.name}}</span> <span class="label label-primary" ng-show="participant.username === user.username">You</span>
 						</h4>
 					</li>
 				</ul>
