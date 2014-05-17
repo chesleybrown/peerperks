@@ -18,44 +18,55 @@
 
 <div class="row" ng-show="selectReward">
 	<div class="col-sm-12">
-		<h3>Reward</h3>
-		<pp-reward enabled="selectReward"></pp-reward>
+		<div class="well">
+			<h3>Reward</h3>
+			<pp-reward enabled="selectReward"></pp-reward>
+		</div>
 	</div>
 </div>
 
 <div class="row" ng-show="selectPerk">
 	<div class="col-sm-12">
-		<h3>Perk</h3>
-		<pp-perk enabled="selectPerk"></pp-perk>
-	</div>
-</div>
-
-<div class="row" ng-hide="selectReward || selectPerk">
-	<div class="col-sm-12">
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="participant in remoteParticipants | orderByPriority">
-				<span class="badge">{{participant.points}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
-				<h4>
-					<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" data-gravatar-secure="1"></gravatar-image>
-					<span>{{participant.name}}</span>
-				</h4>
-			</li>
-		</ul>
+		<div class="well">
+			<h3>Perk</h3>
+			<pp-perk enabled="selectPerk"></pp-perk>
+		</div>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-sm-12">
-		<h3>Activity</h3>
-		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="activity in activities | orderByPriority">
-				<p ng-show="activity.reward">
-					<strong>{{activity.participant.name}}</strong> earned <strong>{{activity.reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong> for <strong>{{activity.reward.name}}</strong>
-				</p>
-				<p ng-show="activity.perk">
-					<strong>{{activity.participant.name}}</strong> redeemed <strong>{{activity.perk.name}}</strong> for <strong>{{activity.perk.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong>
-				</p>
-			</li>
-		</ul>
+	<div class="col-md-6 col-sm-12">
+		<div class="row">
+			<div class="col-sm-12">
+				<h3>Participants</h3>
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="participant in remoteParticipants | orderByPriority">
+						<span class="badge">{{participant.points}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
+						<h4>
+							<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" data-gravatar-secure="1"></gravatar-image>
+							<span>{{participant.name}}</span>
+						</h4>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-md-6 col-sm-12">
+		<div class="row">
+			<div class="col-sm-12">
+				<h3>Activity</h3>
+				<ul class="list-group">
+					<li class="list-group-item" ng-repeat="activity in activities | orderByPriority">
+						<p ng-show="activity.reward">
+							<strong>{{activity.participant.name}}</strong> earned <strong>{{activity.reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong> for <strong>{{activity.reward.name}}</strong>
+						</p>
+						<p ng-show="activity.perk">
+							<strong>{{activity.participant.name}}</strong> redeemed <strong>{{activity.perk.name}}</strong> for <strong>{{activity.perk.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>
