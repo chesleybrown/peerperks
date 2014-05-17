@@ -22,7 +22,7 @@ body > .container {
 }
 
 .reward, .perk {
-	height: 120px;
+	min-height: 120px;
 	
 	.value {
 		font-size: 26px;
