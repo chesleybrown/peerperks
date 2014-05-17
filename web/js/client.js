@@ -4,7 +4,8 @@ var app = angular.module('ngPeerPerks', [
 		'ngRoute',
 		'service.participant',
 		'service.activity',
-		'directive.reward'
+		'directive.reward',
+		'directive.perk'
 	])
 	
 	.config(function ($routeProvider, $locationProvider) {
@@ -23,6 +24,11 @@ var app = angular.module('ngPeerPerks', [
 		$scope.participants.$bind($scope, 'remoteParticipants');
 		
 		$scope.activities = ActivityService;
+		
+		$scope.cancel = function() {
+			$scope.selectReward = false;
+			$scope.selectPerk = false;
+		};
 	})
 	
 ;

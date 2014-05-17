@@ -1,16 +1,16 @@
 <div class="row">
 	<div class="col-sm-8">
-		<h1>This Week on PeerPerks</h1>
+		<h1>All Time on PeerPerks</h1>
 		<p class="lead">Code Free or Die Hard</p>
 	</div>
 	<div class="col-sm-4">
 		<div class="btn-group pull-right">
-			<div ng-hide="selectReward">
+			<div ng-hide="selectReward || selectPerk">
 				<button type="button" class="btn btn-primary btn-lg" ng-click="selectReward = !selectReward">Reward</button>
-				<button type="button" class="btn btn-default btn-lg">Redeem</button>
+				<button type="button" class="btn btn-default btn-lg" ng-click="selectPerk = !selectPerk">Redeem</button>
 			</div>
-			<div ng-show="selectReward">
-				<button type="button" class="btn btn-danger btn-lg" ng-click="selectReward = !selectReward">Cancel</button>
+			<div ng-show="selectReward || selectPerk">
+				<button type="button" class="btn btn-danger btn-lg" ng-click="cancel()">Cancel</button>
 			</div>
 		</div>
 	</div>
@@ -23,7 +23,14 @@
 	</div>
 </div>
 
-<div class="row" ng-hide="selectReward">
+<div class="row" ng-show="selectPerk">
+	<div class="col-sm-12">
+		<h3>Perk</h3>
+		<pp-perk enabled="selectPerk"></pp-perk>
+	</div>
+</div>
+
+<div class="row" ng-hide="selectReward || selectPerk">
 	<div class="col-sm-12">
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="participant in remoteParticipants | orderByPriority">
@@ -42,8 +49,11 @@
 		<h3>Activity</h3>
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="activity in activities | orderByPriority">
-				<p>
+				<p ng-show="activity.reward">
 					<strong>{{activity.participant.name}}</strong> earned <strong>{{activity.reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong> for <strong>{{activity.reward.name}}</strong>
+				</p>
+				<p ng-show="activity.perk">
+					<strong>{{activity.participant.name}}</strong> redeemed <strong>{{activity.perk.name}}</strong> for <strong>{{activity.perk.points}} <span class="glyphicon glyphicon-thumbs-up"></span></strong>
 				</p>
 			</li>
 		</ul>

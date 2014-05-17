@@ -28,7 +28,7 @@ angular
 					'</div>' +
 					'<h5>2. Select reward</h5>' +
 					'<div class="row equal">' +
-						'<div ng-repeat="(id, reward) in remoteRewards" class="col-lg-3 col-md-4 col-xs-6 thumb">' +
+						'<div ng-repeat="(id, reward) in rewards" class="col-lg-3 col-md-4 col-xs-6 thumb">' +
 							'<a class="reward thumbnail text-center" ng-click="selectReward(id)" ng-class="{active: selected.reward.$id === id}">' +
 								'<p class="value">{{reward.points}} <span class="glyphicon glyphicon-thumbs-up"></span></p>' +
 								'<p>{{reward.name}}</p>' +
@@ -52,7 +52,6 @@ angular
 				$scope.participants = ParticipantService;
 				
 				$scope.rewards = RewardService;
-				$scope.rewards.$bind($scope, 'remoteRewards');
 				
 				$scope.selectUser = function(participantId) {
 					$scope.selected.participant = $scope.participants.$child(participantId);
