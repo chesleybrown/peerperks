@@ -51,7 +51,8 @@ var app = angular.module('ngPeerPerks', [
 							points: {
 								current: 0,
 								allTime: 0,
-								redeemed: 0
+								redeemed: 0,
+								perks: 0
 							}
 						});
 					}
