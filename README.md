@@ -22,8 +22,8 @@ Go to `localhost:3002`.
 
 In Firebase you should populate a `rewards` collection and `perks` collection with something along the following:
 
+##### Rewards
 ```json
-// rewards
 [
 	{
 		"points" : 3,
@@ -36,8 +36,8 @@ In Firebase you should populate a `rewards` collection and `perks` collection wi
 ]
 ```
 
+##### Perks
 ```json
-// perks
 [
 	{
 		".priority" : 30.0,
