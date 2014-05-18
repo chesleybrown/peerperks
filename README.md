@@ -19,3 +19,35 @@ grunt
 ```
 
 Go to `localhost:3002`.
+
+In Firebase you should populate a `rewards` collection and `perks` collection with something along the following:
+
+```json
+// rewards
+[
+	{
+		"points" : 3,
+		"name" : "Finished on top this week"
+	},
+	{
+		"points" : 2,
+		"name" : "Have your pull request merged"
+	}
+]
+```
+
+```json
+// perks
+[
+	{
+		".priority" : 30.0,
+		"points" : 30,
+		"name" : "Pick any one task you want to work on"
+	},
+	{
+		".priority" : 50.0,
+		"points" : 50,
+		"name" : "Hour off early on Friday"
+	}
+]
+```
