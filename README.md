@@ -4,6 +4,7 @@ PeerPerks
 Encourage peer code review through gamification with perks.
 
 #### Requirements
+- firebase
 - npm
 - bower
 - grunt
