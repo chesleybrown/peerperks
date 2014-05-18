@@ -51,7 +51,7 @@
 					<li class="list-group-item" ng-repeat="participant in remoteParticipants | orderByPriority">
 						<div class="row">
 							<div class="col-sm-2 col-xs-12 text-center">
-								<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" data-gravatar-secure="1"></gravatar-image>
+								<gravatar-image class="gravatar" data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" data-gravatar-secure="1"></gravatar-image>
 							</div>
 							<div class="col-sm-10 col-xs-12">
 								<span class="points badge">{{participant.points.current}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
