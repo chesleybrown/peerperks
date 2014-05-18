@@ -48,7 +48,11 @@ var app = angular.module('ngPeerPerks', [
 							email: $scope.user.thirdPartyUserData.email,
 							name: $scope.user.displayName,
 							username: $scope.user.username,
-							points: 0
+							points: {
+								current: 0,
+								allTime: 0,
+								redeemed: 0
+							}
 						});
 					}
 				}

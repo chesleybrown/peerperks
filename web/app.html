@@ -49,11 +49,19 @@
 				<h3>Participants</h3>
 				<ul class="list-group">
 					<li class="list-group-item" ng-repeat="participant in remoteParticipants | orderByPriority">
-						<span class="badge">{{participant.points}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
-						<h4>
-							<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" data-gravatar-secure="1"></gravatar-image>
-							<span>{{participant.name}}</span> <span class="label label-primary" ng-show="participant.username === user.username">You</span>
-						</h4>
+						<div class="row">
+							<div class="col-xs-2">
+								<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" data-gravatar-secure="1"></gravatar-image>
+							</div>
+							<div class="col-xs-10">
+								<span class="points badge">{{participant.points.current}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
+								<h4>
+									<span>{{participant.name}}</span> <span class="label label-primary" ng-show="participant.username === user.username">You</span>
+								</h4>
+								<span class="label label-default">{{participant.points.allTime}} <span class="glyphicon glyphicon-thumbs-up"></span> All Time</span>
+								<span class="label label-default">{{participant.points.redeemed}} <span class="glyphicon glyphicon-thumbs-up"></span> Redeemed</span>
+							</div>
+						</div>
 					</li>
 				</ul>
 			</div>

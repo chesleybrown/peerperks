@@ -23,7 +23,7 @@ angular
 							'<a class="thumbnail text-center" ng-click="selectUser(id)" ng-class="{active: selected.participant.$id === id}">' +
 								'<gravatar-image data-gravatar-email="participant.email" data-gravatar-size="64" data-gravatar-default="identicon" data-gravatar-css-class="img-circle" data-gravatar-secure="1"></gravatar-image>' +
 								'<h4 class="text-center">{{participant.name}}</h4>' +
-								'<h5 class="text-center">{{participant.points}} <span class="glyphicon glyphicon-thumbs-up"></span></h5>' +
+								'<h5 class="text-center">{{participant.points.current}} <span class="glyphicon glyphicon-thumbs-up"></span></h5>' +
 							'</a>' +
 						'</div>' +
 					'</div>' +
@@ -67,7 +67,7 @@ angular
 				
 				$scope.verify = function() {
 					if ($scope.selected.participant && $scope.selected.perk) {
-						if ($scope.selected.participant.points - $scope.selected.perk.points >= 0) {
+						if ($scope.selected.participant.points.current - $scope.selected.perk.points >= 0) {
 							$scope.sufficient = true;
 						}
 						else {
@@ -80,7 +80,8 @@ angular
 					$scope.verify();
 					
 					if ($scope.sufficient) {
-						$scope.selected.participant.points = $scope.selected.participant.points - $scope.selected.perk.points;
+						$scope.selected.participant.points.current = $scope.selected.participant.points.current - $scope.selected.perk.points;
+						$scope.selected.participant.points.redeemed = $scope.selected.participant.points.redeemed + $scope.selected.perk.points;
 						$scope.selected.participant.$priority = -Math.abs($scope.selected.participant.points);
 						$scope.selected.participant.$save().then(function() {
 							ActivityService.$add({
