@@ -41,12 +41,10 @@ In Firebase you should populate a `rewards` collection and `perks` collection wi
 ```json
 [
 	{
-		".priority" : 30.0,
 		"points" : 30,
 		"name" : "Pick any one task you want to work on"
 	},
 	{
-		".priority" : 50.0,
 		"points" : 50,
 		"name" : "Hour off early on Friday"
 	}
