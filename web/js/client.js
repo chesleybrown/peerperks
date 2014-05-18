@@ -21,7 +21,7 @@ var app = angular.module('ngPeerPerks', [
 		;
 	})
 	
-	.controller('AppCtrl', function ($scope, _, ParticipantService, ActivityService, API_URL) {
+	.controller('AppCtrl', function ($scope, $firebaseSimpleLogin, _, ParticipantService, ActivityService, API_URL) {
 		var loginRef = new Firebase(API_URL);
 		var auth;
 		
@@ -29,7 +29,7 @@ var app = angular.module('ngPeerPerks', [
 		
 		$scope.participants = ParticipantService;
 		$scope.participants.$bind($scope, 'remoteParticipants').then(function() {
-			auth = new FirebaseSimpleLogin(loginRef, function(error, user) {
+			auth = $firebaseSimpleLogin(loginRef, function(error, user) {
 				$scope.user = user;
 				
 				if (error){
