@@ -54,8 +54,8 @@ var app = angular.module('ngPeerPerks', [
 				// if not participating yet, then add the user
 				if (!participant) {
 					$scope.participants.$add({
-						email: $scope.user.thirdPartyUserData.email,
-						name: $scope.user.displayName,
+						email: ($scope.user.thirdPartyUserData.email) ? $scope.user.thirdPartyUserData.email : $scope.user.thirdPartyUserData.emails[0],
+						name: ($scope.user.displayName) ? $scope.user.displayName : $scope.user.username,
 						username: $scope.user.username,
 						points: {
 							current: 0,
