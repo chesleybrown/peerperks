@@ -23,6 +23,7 @@ module.exports = function(grunt) {
 			client: {
 				files: {
 					'build/js/compiled/client.js': [
+						'build/js/compiled/config.app.js',
 						'web/js/client.js',
 						'web/js/directives/**/*.js',
 						'web/js/services/**/*.js',
@@ -111,6 +112,16 @@ module.exports = function(grunt) {
 				}
 			}
 		},
+		ngconstant: {
+			options: {
+				space: '	',
+				name: 'config.app',
+				dest: 'build/js/compiled/config.app.js'
+			},
+			build: {
+				constants: grunt.file.readJSON('config.json')
+			}
+		},
 		watch: {
 			options: {
 				livereload: 35730
@@ -134,7 +145,7 @@ module.exports = function(grunt) {
 	grunt.registerTask('server', ['connect:server']);
 	
 	grunt.registerTask('build', ['clean:build', 'build:css', 'build:js', 'copy:build',]);
-	grunt.registerTask('build:js', ['clean:js', 'browserify:deps', 'browserify:client',]);
+	grunt.registerTask('build:js', ['clean:js', 'ngconstant:build', 'browserify:deps', 'browserify:client',]);
 	grunt.registerTask('build:css', ['clean:css', 'sass:build', 'compress:css']);
 	grunt.registerTask('build:dist', ['build', 'compress:js',]);
 	grunt.registerTask('compress:js', ['uglify:deps', 'uglify:client']);

@@ -1,9 +1,12 @@
 'use strict';
 
 angular
-	.module('service.perk', ['firebase'])
-	.factory('PerkService', ['$firebase', function($firebase) {
-		var ref = new Firebase('https://peerperks.firebaseio.com/perks');
+	.module('service.perk', [
+		'firebase',
+		'config.app'
+	])
+	.factory('PerkService', ['$firebase', 'API_URL', function($firebase, API_URL) {
+		var ref = new Firebase(API_URL + '/perks');
 		return $firebase(ref);
 	}])
 ;

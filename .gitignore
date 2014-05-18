@@ -12,3 +12,6 @@ web/components
 
 # Build
 build
+
+# Settings
+config.json

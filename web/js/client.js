@@ -1,6 +1,7 @@
 'use strict';
 
 var app = angular.module('ngPeerPerks', [
+		'config.app',
 		'ngRoute',
 		'service.lodash',
 		'service.participant',
@@ -20,12 +21,12 @@ var app = angular.module('ngPeerPerks', [
 		;
 	})
 	
-	.controller('AppCtrl', function ($scope, _, ParticipantService, ActivityService) {
+	.controller('AppCtrl', function ($scope, _, ParticipantService, ActivityService, API_URL) {
 		$scope.error = null;
 		$scope.participants = ParticipantService;
 		$scope.participants.$bind($scope, 'remoteParticipants');
 		
-		var loginRef = new Firebase('https://peerperks.firebaseio.com');
+		var loginRef = new Firebase(API_URL);
 		var auth = new FirebaseSimpleLogin(loginRef, function(error, user) {
 			$scope.user = user;
 			
