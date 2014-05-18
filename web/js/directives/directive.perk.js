@@ -84,7 +84,7 @@ angular
 						$scope.selected.participant.points.redeemed = $scope.selected.participant.points.redeemed + $scope.selected.perk.points;
 						$scope.selected.participant.points.perks = $scope.selected.participant.points.perks + 1;
 						$scope.selected.participant.$child('perks').$add($scope.selected.perk);
-						$scope.selected.participant.$priority = -Math.abs($scope.selected.participant.points);
+						$scope.selected.participant.$priority = -Math.abs($scope.selected.participant.points.current);
 						$scope.selected.participant.$save().then(function() {
 							ActivityService.$add({
 								participant: $scope.selected.participant,
