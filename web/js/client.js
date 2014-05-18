@@ -22,40 +22,43 @@ var app = angular.module('ngPeerPerks', [
 	})
 	
 	.controller('AppCtrl', function ($scope, _, ParticipantService, ActivityService, API_URL) {
-		$scope.error = null;
-		$scope.participants = ParticipantService;
-		$scope.participants.$bind($scope, 'remoteParticipants');
-		
 		var loginRef = new Firebase(API_URL);
-		var auth = new FirebaseSimpleLogin(loginRef, function(error, user) {
-			$scope.user = user;
-			
-			if (error){
-				$scope.error = error.message;
-			}
-			else if (user) {
-				// successful login
-				$scope.error = null;
-				var participant = _.find($scope.participants, function(participant) {
-					return (participant.username === $scope.user.username);
-				});
+		var auth;
+		
+		$scope.error = null;
+		
+		$scope.participants = ParticipantService;
+		$scope.participants.$bind($scope, 'remoteParticipants').then(function() {
+			auth = new FirebaseSimpleLogin(loginRef, function(error, user) {
+				$scope.user = user;
 				
-				// if not participating yet, then add the user
-				if (!participant) {
-					$scope.participants.$add({
-						email: $scope.user.thirdPartyUserData.email,
-						name: $scope.user.displayName,
-						username: $scope.user.username,
-						points: 0
-					});
+				if (error){
+					$scope.error = error.message;
 				}
-			}
-			else {
-				// user is logged out
-				$scope.error = null;
-			}
-			
-			$scope.$digest();
+				else if (user) {
+					// successful login
+					$scope.error = null;
+					var participant = _.find($scope.participants, function(participant) {
+						return (participant.username === $scope.user.username);
+					});
+					
+					// if not participating yet, then add the user
+					if (!participant) {
+						$scope.participants.$add({
+							email: $scope.user.thirdPartyUserData.email,
+							name: $scope.user.displayName,
+							username: $scope.user.username,
+							points: 0
+						});
+					}
+				}
+				else {
+					// user is logged out
+					$scope.error = null;
+				}
+				
+				$scope.$digest();
+			});
 		});
 		
 		$scope.activities = ActivityService;
