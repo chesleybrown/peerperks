@@ -64,6 +64,7 @@ angular
 				$scope.save = function() {
 					$scope.selected.participant.points.current = $scope.selected.participant.points.current + $scope.selected.reward.points;
 					$scope.selected.participant.points.allTime = $scope.selected.participant.points.allTime + $scope.selected.reward.points;
+					$scope.selected.participant.$child('rewards').$add($scope.selected.reward);
 					$scope.selected.participant.$priority = -Math.abs($scope.selected.participant.points);
 					$scope.selected.participant.$save().then(function() {
 						ActivityService.$add({
