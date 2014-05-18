@@ -61,6 +61,7 @@
 								<span class="label label-default">{{participant.points.allTime}} <span class="glyphicon glyphicon-thumbs-up"></span> All Time</span>
 								<span class="label label-default">{{participant.points.redeemed}} <span class="glyphicon glyphicon-thumbs-up"></span> Redeemed</span>
 								<span class="label label-default">{{participant.points.perks}} <span class="glyphicon glyphicon-thumbs-up"></span> Perks</span>
+								<span class="label label-success" ng-show="participant.status === 'online'"><span class="glyphicon glyphicon-flash"></span></span>
 							</div>
 						</div>
 					</li>

@@ -28,11 +28,27 @@ var app = angular.module('ngPeerPerks', [
 		
 		$scope.error = null;
 		
+		$scope.presence = function() {
+			var amOnline = new Firebase(API_URL + '/.info/connected');
+			var presenceRef = new Firebase(API_URL + '/participants/' + $scope.user.username + '/status');
+			
+			amOnline.on('value', function(snapshot) {
+				if (snapshot.val()) {
+					presenceRef.onDisconnect().set('offline');
+					presenceRef.set('online');
+				}
+			});
+		};
+		
 		$scope.participants = ParticipantService;
 		$scope.participants.$bind($scope, 'remoteParticipants').then(function() {
 			auth = $firebaseSimpleLogin(loginRef);
 			auth.$getCurrentUser().then(function(user) {
 				$scope.user = user;
+				
+				if ($scope.user) {
+					$scope.presence();
+				}
 			});
 		});
 		
@@ -45,6 +61,8 @@ var app = angular.module('ngPeerPerks', [
 			}).then(function(user) {
 				$scope.user = user;
 				
+				$scope.presence();
+				
 				// successful login
 				$scope.error = null;
 				var participant = _.find($scope.participants, function(participant) {
@@ -53,7 +71,7 @@ var app = angular.module('ngPeerPerks', [
 				
 				// if not participating yet, then add the user
 				if (!participant) {
-					$scope.participants.$add({
+					$scope.participants.$child($scope.user.username).$set({
 						email: ($scope.user.thirdPartyUserData.email) ? $scope.user.thirdPartyUserData.email : $scope.user.thirdPartyUserData.emails[0],
 						name: ($scope.user.displayName) ? $scope.user.displayName : $scope.user.username,
 						username: $scope.user.username,
@@ -77,6 +95,8 @@ var app = angular.module('ngPeerPerks', [
 		};
 		
 		$scope.logout = function() {
+			var presenceRef = new Firebase(API_URL + '/participants/' + $scope.user.username + '/status');
+			presenceRef.set('offline');
 			auth.$logout();
 			$scope.user = null;
 		};
