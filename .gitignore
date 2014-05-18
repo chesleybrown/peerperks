@@ -15,3 +15,4 @@ build
 
 # Settings
 config.json
+firebase.json
