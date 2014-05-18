@@ -1,6 +1,7 @@
 'use strict';
 
 var app = angular.module('ngPeerPerks', [
+		'firebase',
 		'config.app',
 		'ngRoute',
 		'service.lodash',
@@ -21,7 +22,7 @@ var app = angular.module('ngPeerPerks', [
 		;
 	})
 	
-	.controller('AppCtrl', function ($scope, $firebaseSimpleLogin, _, ParticipantService, ActivityService, API_URL) {
+	.controller('AppCtrl', function ($scope, $firebaseSimpleLogin, $firebase, _, ParticipantService, ActivityService, API_URL) {
 		var loginRef = new Firebase(API_URL);
 		var auth;
 		
@@ -29,54 +30,55 @@ var app = angular.module('ngPeerPerks', [
 		
 		$scope.participants = ParticipantService;
 		$scope.participants.$bind($scope, 'remoteParticipants').then(function() {
-			auth = $firebaseSimpleLogin(loginRef, function(error, user) {
+			auth = $firebaseSimpleLogin(loginRef);
+			auth.$getCurrentUser().then(function(user) {
 				$scope.user = user;
-				
-				if (error){
-					$scope.error = error.message;
-				}
-				else if (user) {
-					// successful login
-					$scope.error = null;
-					var participant = _.find($scope.participants, function(participant) {
-						return (participant.username === $scope.user.username);
-					});
-					
-					// if not participating yet, then add the user
-					if (!participant) {
-						$scope.participants.$add({
-							email: $scope.user.thirdPartyUserData.email,
-							name: $scope.user.displayName,
-							username: $scope.user.username,
-							points: {
-								current: 0,
-								allTime: 0,
-								redeemed: 0,
-								perks: 0
-							}
-						});
-					}
-				}
-				else {
-					// user is logged out
-					$scope.error = null;
-				}
-				
-				$scope.$digest();
 			});
 		});
 		
 		$scope.activities = ActivityService;
 		
 		$scope.login = function() {
-			auth.login('github', {
+			auth.$login('github', {
 				rememberMe: true,
 				scope: 'user:email'
+			}).then(function(user) {
+				$scope.user = user;
+				
+				// successful login
+				$scope.error = null;
+				var participant = _.find($scope.participants, function(participant) {
+					return (participant.username === $scope.user.username);
+				});
+				
+				// if not participating yet, then add the user
+				if (!participant) {
+					$scope.participants.$add({
+						email: $scope.user.thirdPartyUserData.email,
+						name: $scope.user.displayName,
+						username: $scope.user.username,
+						points: {
+							current: 0,
+							allTime: 0,
+							redeemed: 0,
+							perks: 0
+						}
+					}).then(function(ref) {
+						var participant = $firebase(ref);
+						participant.$priority = 0;
+						participant.$save();
+					});
+				}
+				
+				$scope.error = null;
+			}, function(error) {
+				$scope.error = error.message;
 			});
 		};
 		
 		$scope.logout = function() {
-			auth.logout();
+			auth.$logout();
+			$scope.user = null;
 		};
 		
 		$scope.cancel = function() {
