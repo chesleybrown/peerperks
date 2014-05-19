@@ -65,6 +65,7 @@ var app = angular.module('ngPeerPerks', [
 				
 				// successful login
 				$scope.error = null;
+				
 				var participant = _.find($scope.participants, function(participant) {
 					return (participant.username === $scope.user.username);
 				});
@@ -72,7 +73,7 @@ var app = angular.module('ngPeerPerks', [
 				// if not participating yet, then add the user
 				if (!participant) {
 					$scope.participants.$child($scope.user.username).$set({
-						email: ($scope.user.thirdPartyUserData.email) ? $scope.user.thirdPartyUserData.email : $scope.user.thirdPartyUserData.emails[0],
+						email: ($scope.user.thirdPartyUserData.email) ? $scope.user.thirdPartyUserData.email : $scope.user.thirdPartyUserData.emails[0].email,
 						name: ($scope.user.displayName) ? $scope.user.displayName : $scope.user.username,
 						username: $scope.user.username,
 						points: {
