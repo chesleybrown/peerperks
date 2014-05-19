@@ -29,15 +29,17 @@ var app = angular.module('ngPeerPerks', [
 		$scope.error = null;
 		
 		$scope.presence = function() {
-			var amOnline = new Firebase(API_URL + '/.info/connected');
-			var presenceRef = new Firebase(API_URL + '/participants/' + $scope.user.username + '/status');
-			
-			amOnline.on('value', function(snapshot) {
-				if (snapshot.val()) {
-					presenceRef.onDisconnect().set('offline');
-					presenceRef.set('online');
-				}
-			});
+			if ($scope.user) {
+				var amOnline = new Firebase(API_URL + '/.info/connected');
+				var presenceRef = new Firebase(API_URL + '/participants/' + $scope.user.username + '/status');
+				
+				amOnline.on('value', function(snapshot) {
+					if (snapshot.val()) {
+						presenceRef.onDisconnect().set('offline');
+						presenceRef.set('online');
+					}
+				});
+			}
 		};
 		
 		$scope.participants = ParticipantService;
@@ -83,6 +85,8 @@ var app = angular.module('ngPeerPerks', [
 							perks: 0
 						}
 					}).then(function(ref) {
+						$scope.presence();
+						
 						var participant = $firebase(ref);
 						participant.$priority = 0;
 						participant.$save();
