@@ -56,7 +56,7 @@
 							<div class="col-sm-10 col-xs-12">
 								<span class="points badge">{{participant.points.current}} <span class="glyphicon glyphicon-thumbs-up"></span></span>
 								<h4>
-									<span>{{participant.name}}</span> <span class="label label-primary" ng-show="participant.username === user.username">You</span>
+									<span>{{participant.name}}</span> <span class="label label-primary" ng-show="user && participant.username === user.username">You</span>
 								</h4>
 								<span class="label label-default">{{participant.points.allTime}} <span class="glyphicon glyphicon-thumbs-up"></span> All Time</span>
 								<span class="label label-default">{{participant.points.redeemed}} <span class="glyphicon glyphicon-thumbs-up"></span> Redeemed</span>
