@@ -84,10 +84,11 @@ var app = angular.module('ngPeerPerks', [
 							redeemed: 0,
 							perks: 0
 						}
-					}).then(function(ref) {
+					}).then(function() {
 						$scope.presence();
 						
-						var participant = $firebase(ref);
+						var participantRef = new Firebase(API_URL + '/participants/' + $scope.user.username);
+						var participant = $firebase(participantRef);
 						participant.$priority = 0;
 						participant.$save();
 					});
