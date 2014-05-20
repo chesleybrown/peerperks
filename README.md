@@ -3,6 +3,8 @@ PeerPerks
 
 Encourage peer code review through gamification with perks.
 
+![Screenshot](https://dl.dropboxusercontent.com/u/127414/PeerPerks/Screenshot%202014-05-19%2022.37.16.png)
+
 #### Requirements
 - [firebase](https://www.firebase.com)
 - [npm](https://www.npmjs.org)
