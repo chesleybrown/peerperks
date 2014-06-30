@@ -16,7 +16,8 @@ module.exports = function(grunt) {
 						'web/components/firebase/firebase.js',
 						'web/components/firebase-simple-login/firebase-simple-login.js',
 						'web/components/angularfire/angularfire.min.js',
-						'web/components/angularjs-gravatardirective/dist/angularjs-gravatardirective.min.js'
+						'web/components/angularjs-gravatardirective/dist/angularjs-gravatardirective.min.js',
+						'web/components/angular-flash/dist/angular-flash.min.js'
 					]
 				}
 			},
