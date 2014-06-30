@@ -54,7 +54,6 @@ var app = angular.module('ngPeerPerks', [
 				flash.success = 'Welcome to PeerPerks, ' + $scope.signupform.name + '. Thank you for signing up.';
 				$location.path('/');
 			}, function(error) {
-				console.log(error);
 				$scope.signupform.errordetail = error.message.replace(/FirebaseSimpleLogin\: /g, '');
 			});
 		};
